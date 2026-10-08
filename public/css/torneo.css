@@ -1,0 +1,971 @@
+/* ==========================================================================
+   Torneo Padel — stile dell'applicazione (sopra Bootstrap 5)
+
+   Colori e carattere vengono dall'identità del circolo, senza usarne il logo:
+   - ambra della racchetta  → colore principale (pulsanti, evidenze)
+   - nero del lettering     → barra, titoli, testo sopra l'ambra
+   - rosso della firma      → solo il tratto a pennello sotto marchio e titoli
+                              (e gli stati di errore: mai per azioni normali)
+   - fori della racchetta   → motivo a pallini delle pagine per ospiti
+
+   Regola di contrasto: sopra l'ambra il testo è sempre nero, mai bianco.
+   Sul bianco l'ambra non si usa per il testo: c'è --ambra-testo.
+   ========================================================================== */
+
+/* Il carattere Archivo (@font-face) è dichiarato in components/layouts/base.blade.php,
+   perché il suo indirizzo porta la release scritta in config/risorse.php. */
+
+:root {
+    /* --- Palette ---------------------------------------------------------- */
+    --ambra: #f8b006;
+    --ambra-scura: #dd9b00;
+    --ambra-chiara: #fff4d2;
+    --ambra-testo: #855800;
+    --sole: #f7d410;
+    --rosso: #d80c17;
+    --rosso-scuro: #b00a13;
+    --nero: #000;
+    --inchiostro: #1c1c1c;
+    --pagina: #f5f5f5;
+    --bordo: #e2e2e2;
+
+    --ambra-rgb: 248, 176, 6;
+    --rosso-rgb: 216, 12, 23;
+
+    /* --- Tipografia ------------------------------------------------------- */
+    --carattere: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --largo: 125%;       /* larghezza del lettering: marchio e titoli di pagina */
+    --semilargo: 112%;   /* titoli di scheda, pulsanti, numeri */
+
+    /* Tratto a pennello rosso (decorazione) */
+    --tratto: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath fill='%23d80c17' d='M1 11C44 3 128 0 199 3c-64 0-138 4-195 10z'/%3E%3C/svg%3E");
+
+    /* --- Bootstrap -------------------------------------------------------- */
+    --bs-body-font-family: var(--carattere);
+    --bs-body-color: var(--inchiostro);
+    --bs-body-color-rgb: 28, 28, 28;
+    --bs-heading-color: var(--nero);
+    --bs-emphasis-color: var(--nero);
+
+    --bs-primary: var(--ambra);
+    --bs-primary-rgb: var(--ambra-rgb);
+    --bs-primary-text-emphasis: var(--ambra-testo);
+    --bs-primary-bg-subtle: var(--ambra-chiara);
+    --bs-primary-border-subtle: #f6d77a;
+
+    --bs-danger: var(--rosso);
+    --bs-danger-rgb: var(--rosso-rgb);
+    --bs-form-invalid-color: var(--rosso);
+    --bs-form-invalid-border-color: var(--rosso);
+
+    --bs-link-color: var(--nero);
+    --bs-link-color-rgb: 0, 0, 0;
+    --bs-link-hover-color: var(--nero);
+    --bs-link-hover-color-rgb: 0, 0, 0;
+
+    --bs-border-color: var(--bordo);
+    --bs-border-radius: .5rem;
+    --bs-focus-ring-color: rgba(var(--ambra-rgb), .5);
+}
+
+/* --- Testo e collegamenti ------------------------------------------------ */
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 700;
+    font-stretch: var(--semilargo);
+    letter-spacing: -.005em;
+}
+
+/* Collegamento: testo nero, sottolineatura ambra che diventa rossa al passaggio */
+a {
+    text-decoration-color: var(--ambra);
+    text-decoration-thickness: .14em;
+    text-underline-offset: .22em;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration-color: var(--rosso);
+}
+
+.text-primary {
+    color: var(--ambra-testo) !important;
+}
+
+.text-bg-primary {
+    color: var(--nero) !important;
+    background-color: var(--ambra) !important;
+}
+
+.badge {
+    font-weight: 700;
+    letter-spacing: .01em;
+}
+
+::selection {
+    color: var(--nero);
+    background: var(--sole);
+}
+
+/* --- Pulsanti ------------------------------------------------------------- */
+
+.btn {
+    --bs-btn-font-weight: 700;
+    font-stretch: var(--semilargo);
+}
+
+.btn-primary {
+    --bs-btn-color: var(--nero);
+    --bs-btn-bg: var(--ambra);
+    --bs-btn-border-color: var(--ambra);
+    --bs-btn-hover-color: var(--nero);
+    --bs-btn-hover-bg: var(--ambra-scura);
+    --bs-btn-hover-border-color: var(--ambra-scura);
+    --bs-btn-active-color: var(--nero);
+    --bs-btn-active-bg: var(--ambra-scura);
+    --bs-btn-active-border-color: var(--ambra-scura);
+    --bs-btn-disabled-color: var(--nero);
+    --bs-btn-disabled-bg: var(--ambra);
+    --bs-btn-disabled-border-color: var(--ambra);
+    --bs-btn-focus-shadow-rgb: var(--ambra-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--nero);
+    --bs-btn-border-color: var(--nero);
+    --bs-btn-hover-color: var(--nero);
+    --bs-btn-hover-bg: var(--ambra);
+    --bs-btn-hover-border-color: var(--nero);
+    --bs-btn-active-color: var(--nero);
+    --bs-btn-active-bg: var(--ambra-scura);
+    --bs-btn-active-border-color: var(--nero);
+    --bs-btn-disabled-color: var(--nero);
+    --bs-btn-disabled-border-color: var(--nero);
+    --bs-btn-focus-shadow-rgb: var(--ambra-rgb);
+}
+
+.btn-danger {
+    --bs-btn-bg: var(--rosso);
+    --bs-btn-border-color: var(--rosso);
+    --bs-btn-hover-bg: var(--rosso-scuro);
+    --bs-btn-hover-border-color: var(--rosso-scuro);
+    --bs-btn-active-bg: var(--rosso-scuro);
+    --bs-btn-active-border-color: var(--rosso-scuro);
+    --bs-btn-disabled-bg: var(--rosso);
+    --bs-btn-disabled-border-color: var(--rosso);
+    --bs-btn-focus-shadow-rgb: var(--rosso-rgb);
+}
+
+.btn-outline-danger {
+    --bs-btn-color: var(--rosso);
+    --bs-btn-border-color: var(--rosso);
+    --bs-btn-hover-bg: var(--rosso);
+    --bs-btn-hover-border-color: var(--rosso);
+    --bs-btn-active-bg: var(--rosso-scuro);
+    --bs-btn-active-border-color: var(--rosso-scuro);
+    --bs-btn-focus-shadow-rgb: var(--rosso-rgb);
+}
+
+/* --- Form ------------------------------------------------------------------ */
+
+.form-label {
+    font-weight: 600;
+}
+
+/* Bordo nero + alone ambra: il fuoco si vede anche dove l'ambra da sola non basta */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--nero);
+    box-shadow: 0 0 0 .2rem rgba(var(--ambra-rgb), .5);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--nero);
+    outline-offset: 2px;
+}
+
+.form-check-input:checked {
+    background-color: var(--nero);
+    border-color: var(--nero);
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+    border-color: var(--rosso);
+    box-shadow: 0 0 0 .2rem rgba(var(--rosso-rgb), .25);
+}
+
+/* Il pulsante "mostra password" segue il bordo del campo quando c'è un errore */
+.input-group .form-control.is-invalid ~ .btn {
+    border-color: var(--bs-form-invalid-border-color);
+}
+
+/* --- Schede e tabelle ------------------------------------------------------ */
+
+.card {
+    --bs-card-border-color: var(--bordo);
+    --bs-card-cap-bg: #fff;
+}
+
+.card-header {
+    padding-block: .9rem;
+    border-bottom-color: var(--bordo);
+}
+
+.card-footer {
+    border-top-color: var(--bordo);
+}
+
+.card-header .bi,
+.card-title .bi {
+    margin-right: .25rem;
+}
+
+.table {
+    --bs-table-hover-bg: var(--ambra-chiara);
+    --bs-table-hover-color: var(--nero);
+}
+
+/* Tabella a filo dentro una scheda: allinea le celle al titolo della scheda */
+.card .table > :not(caption) > * > :first-child {
+    padding-left: var(--bs-card-spacer-x);
+}
+
+.card .table > :not(caption) > * > :last-child {
+    padding-right: var(--bs-card-spacer-x);
+}
+
+.card .table thead th {
+    font-size: .8125rem;
+    font-weight: 700;
+    color: var(--nero);
+    background-color: #fafafa;
+    border-bottom: 2px solid var(--nero);
+}
+
+/* La scheda su cui si sta lavorando (<x-ui.card highlight>): filo ambra in alto, come la barra principale */
+.scheda-attiva {
+    border-top: 4px solid var(--ambra);
+}
+
+/* --- Altri componenti Bootstrap: stesso colore principale ------------------ */
+
+.dropdown-menu {
+    --bs-dropdown-link-hover-bg: var(--ambra-chiara);
+    --bs-dropdown-link-active-color: var(--nero);
+    --bs-dropdown-link-active-bg: var(--ambra);
+}
+
+.dropdown-item {
+    font-weight: 400;
+}
+
+.dropdown-item .bi {
+    margin-right: .25rem;
+}
+
+.pagination {
+    --bs-pagination-color: var(--nero);
+    --bs-pagination-hover-color: var(--nero);
+    --bs-pagination-hover-bg: var(--ambra-chiara);
+    --bs-pagination-focus-color: var(--nero);
+    --bs-pagination-focus-box-shadow: 0 0 0 .2rem rgba(var(--ambra-rgb), .5);
+    --bs-pagination-active-color: var(--nero);
+    --bs-pagination-active-bg: var(--ambra);
+    --bs-pagination-active-border-color: var(--ambra);
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-color: var(--nero);
+    --bs-nav-pills-link-active-bg: var(--ambra);
+}
+
+.list-group {
+    --bs-list-group-active-color: var(--nero);
+    --bs-list-group-active-bg: var(--ambra);
+    --bs-list-group-active-border-color: var(--ambra);
+}
+
+.progress {
+    --bs-progress-bar-color: var(--nero);
+    --bs-progress-bar-bg: var(--ambra);
+}
+
+/* --- Marchio --------------------------------------------------------------- */
+
+.marchio {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 900;
+    font-stretch: var(--largo);
+    line-height: 1;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+span.marchio {
+    color: var(--nero);
+}
+
+/* Simbolo: disco ambra forato come il piatto di una racchetta.
+   --foro è il colore che "si vede attraverso" (lo sfondo su cui poggia). */
+.marchio-simbolo {
+    --foro: #fff;
+    flex: none;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    background-color: var(--ambra);
+    background-image:
+        radial-gradient(circle, var(--foro) 0 .055em, transparent .075em),
+        radial-gradient(circle, var(--foro) 0 .055em, transparent .075em);
+    background-size: .36em .36em;
+    background-position: .11em .11em, .29em .29em;
+    box-shadow: inset 0 0 0 .1em var(--ambra), inset -.06em -.06em 0 .1em var(--ambra-scura);
+}
+
+.marchio-grande {
+    font-size: 2.25rem;
+}
+
+/* --- Pagine per ospiti: il piatto della racchetta --------------------------- */
+
+.pagina-ospite {
+    --passo: 3.25rem;
+    background-color: var(--ambra);
+    background-image: linear-gradient(135deg, var(--sole) 0%, var(--ambra) 34%);
+    background-attachment: fixed;
+}
+
+/* I fori si addensano al centro, dietro la scheda, e sfumano verso i bordi */
+.pagina-ospite::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(circle, #fff 0 .45rem, transparent calc(.45rem + 1px)),
+        radial-gradient(circle, #fff 0 .45rem, transparent calc(.45rem + 1px));
+    background-size: var(--passo) var(--passo);
+    background-position: 50% 50%, calc(50% + var(--passo) / 2) calc(50% + var(--passo) / 2);
+    -webkit-mask-image: radial-gradient(ellipse 34rem 30rem at 50% 50%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(ellipse 34rem 30rem at 50% 50%, #000 55%, transparent 100%);
+    pointer-events: none;
+}
+
+.pagina-ospite > main {
+    position: relative;
+}
+
+.pagina-ospite .card {
+    border: 0;
+    box-shadow: 0 1.25rem 2.5rem rgba(92, 60, 0, .35) !important;
+}
+
+/* Il marchio poggia su una targhetta bianca, così i fori non lo attraversano */
+.pagina-ospite .marchio {
+    padding: .7rem 1.1rem 1.15rem;
+    border-radius: var(--bs-border-radius);
+    background: #fff var(--tratto) no-repeat left 1.1rem bottom .5rem / calc(100% - 2.2rem) .5rem;
+    box-shadow: 0 .5rem 1.25rem rgba(92, 60, 0, .25);
+}
+
+/* --- Pagine per utenti autenticati ------------------------------------------ */
+
+.pagina-app {
+    background-color: var(--pagina);
+}
+
+.barra-principale {
+    --bs-navbar-color: rgba(255, 255, 255, .78);
+    --bs-navbar-hover-color: var(--sole);
+    --bs-navbar-active-color: var(--ambra);
+    background-color: var(--nero);
+    border-bottom: 4px solid var(--ambra);
+}
+
+.barra-principale .marchio,
+.barra-principale .marchio:hover {
+    color: #fff;
+}
+
+.barra-principale .marchio-simbolo {
+    --foro: var(--nero);
+}
+
+.barra-principale .nav-link {
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.barra-principale .nav-link .bi {
+    margin-right: .25rem;
+}
+
+/* Intestazione di pagina: lettering largo e maiuscolo, con il tratto rosso sotto */
+.intestazione-pagina h1 {
+    padding-bottom: .95rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-stretch: var(--largo);
+    text-transform: uppercase;
+    background: var(--tratto) no-repeat left bottom / 7.5rem .45rem;
+}
+
+.intestazione-pagina h1 .bi {
+    display: inline-grid;
+    place-items: center;
+    width: 1.75em;
+    height: 1.75em;
+    margin-right: .35rem;
+    border-radius: 50%;
+    background: var(--ambra);
+    font-size: .8em;
+    vertical-align: .08em;
+}
+
+/* Riquadro con un numero in evidenza */
+.riquadro-numero-icona {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--ambra);
+    color: var(--nero);
+    font-size: 1.35rem;
+}
+
+.riquadro-numero-valore {
+    font-size: 1.9rem;
+    font-weight: 800;
+    font-stretch: var(--largo);
+    line-height: 1.1;
+    color: var(--nero);
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Passi di una procedura (x-ui.step) --------------------------------------- */
+
+.passo-numero {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background: var(--ambra);
+    color: var(--nero);
+    font-size: .9rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.passo.fatto .passo-numero {
+    background: var(--nero);
+    color: var(--ambra);
+}
+
+/* --- Navigazione a schede (x-ui.nav) ------------------------------------------- */
+
+.navigazione-schede .nav-link {
+    color: var(--nero);
+    font-stretch: var(--semilargo);
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.navigazione-schede .nav-link:hover {
+    background: var(--ambra-chiara);
+}
+
+.navigazione-schede .nav-link.active {
+    border-color: var(--ambra);
+}
+
+/* --- Formato delle partite e punteggio ------------------------------------------ */
+
+/* Campi dentro una tabella: nessuno spazio sotto, larghezza minima leggibile */
+.tabella-formati .mb-2,
+.tabella-formati .mb-3 {
+    margin-bottom: 0 !important;
+}
+
+.tabella-formati .form-select {
+    min-width: 9.75rem;
+}
+
+.tabella-formati .form-control {
+    min-width: 3.75rem;
+    max-width: 6rem;
+}
+
+.tabella-formati th {
+    white-space: nowrap;
+}
+
+/* Sei colonne nella scheda Formula: celle un po' più strette, e le ultime due intestazioni
+   («Punti tie-break», «Due game di scarto») vanno a capo, così la tabella non scorre a 1200px. */
+.tabella-formati > :not(caption) > * > *,
+.card .tabella-formati > :not(caption) > * > :first-child,
+.card .tabella-formati > :not(caption) > * > :last-child {
+    padding-inline: .375rem;
+}
+
+.tabella-formati th:nth-last-child(-n+2) {
+    white-space: normal;
+    line-height: 1.2;
+}
+
+/* Casella «Due game di scarto»: al centro della sua colonna, larga quanto basta a un'intestazione su due righe */
+.tabella-formati th:last-child,
+.tabella-formati td:last-child {
+    min-width: 5rem;
+    text-align: center;
+}
+
+.tabella-formati .form-check {
+    display: inline-block;
+    min-height: 0;
+    padding-left: 0;
+}
+
+.tabella-formati .form-check-input {
+    float: none;
+    margin: 0;
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: middle;
+}
+
+/* Migliori per categoria (x-giocatori.migliori): una tabella per gruppo, con le colonne allineate tra loro */
+.tabella-migliori {
+    min-width: 40rem;
+    table-layout: fixed;
+}
+
+.tabella-migliori th:nth-child(1) { width: 2.5rem; }
+.tabella-migliori th:nth-child(3) { width: 8.75rem; }
+.tabella-migliori th:nth-child(4) { width: 10.5rem; }
+.tabella-migliori th:nth-child(5) { width: 7.5rem; }
+.tabella-migliori th:nth-child(6) { width: 4rem; }
+.tabella-migliori th:nth-child(7) { width: 4.75rem; }
+
+.tabella-migliori td:nth-child(2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Griglia del punteggio (x-ui.score-grid): una colonna stretta per set */
+.tabella-punteggio th[scope="row"] {
+    min-width: 9rem;
+}
+
+.tabella-punteggio td {
+    width: 5rem;
+    min-width: 4.25rem;
+}
+
+.tabella-punteggio .form-control {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    padding-inline: .25rem;
+}
+
+/* Senza le frecce dei campi numerici: tolgono spazio alle cifre */
+.tabella-punteggio input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.tabella-punteggio input[type="number"]::-webkit-outer-spin-button,
+.tabella-punteggio input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.tabella-classifica td,
+.tabella-classifica th {
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Tabellone delle finali (x-ui.bracket) --------------------------------------- */
+
+/* Una colonna per turno, tutte alte uguali: ogni nodo (due incontri) occupa lo spazio dei suoi due incontri,
+   così l'incontro del turno dopo cade a metà tra i due da cui arrivano le sue squadre. */
+.tabellone {
+    --linea: #b9b9b9;
+    --passo: 1.25rem;   /* metà dello spazio tra due turni: lì si incontrano le linee */
+
+    display: flex;
+    gap: calc(var(--passo) * 2);
+    overflow-x: auto;
+    padding: .25rem .25rem .75rem;
+}
+
+.tabellone-turno {
+    display: flex;
+    flex: 0 0 16.5rem;
+    flex-direction: column;
+}
+
+.tabellone-titolo {
+    margin: 0;
+    font-size: .8125rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+}
+
+.tabellone-nota {
+    min-height: 1.125rem;
+    margin: 0 0 .5rem;
+    font-size: .75rem;
+    line-height: 1.125rem;
+    color: var(--bs-secondary-color);
+}
+
+.tabellone-incontri {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.tabellone-nodo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+/* Ogni incontro occupa una fascia alta uguale del turno e ci sta al centro: così le linee si incontrano */
+.tabellone-posto {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tabellone-partita {
+    position: relative;
+    margin-block: .5rem;
+    background: #fff;
+    border: 1px solid var(--bordo);
+    border-left: 4px solid var(--nero);
+    border-radius: .5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06);
+}
+
+/* A ogni turno le squadre si rimescolano: gli incontri di un turno confluiscono in un'unica linea verticale
+   (un tratto per fascia: mezza fascia per il primo e l'ultimo incontro), da cui partono quelli del turno dopo */
+.tabellone-nodo.raccolta .tabellone-posto::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + var(--passo));
+    border-left: 2px solid var(--linea);
+}
+
+.tabellone-nodo.raccolta .tabellone-posto:first-child::after {
+    top: 50%;
+}
+
+.tabellone-nodo.raccolta .tabellone-posto:last-child::after {
+    bottom: 50%;
+}
+
+/* Il tratto che porta l'incontro alla linea del turno… */
+.tabellone-nodo.raccolta .tabellone-partita::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: calc(var(--passo) + 1px);
+    border-top: 2px solid var(--linea);
+}
+
+/* …e quello che dalla linea del turno precedente entra nell'incontro */
+.tabellone-turno:not(:first-child) .tabellone-partita::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: calc(var(--passo) + 4px);
+    border-top: 2px solid var(--linea);
+}
+
+.tabellone-squadra {
+    display: flex;
+    align-items: center;
+    gap: .375rem;
+    min-height: 2.25rem;
+    padding: .25rem .5rem;
+    font-size: .875rem;
+}
+
+.tabellone-squadra + .tabellone-squadra {
+    border-top: 1px solid var(--bordo);
+}
+
+.tabellone-squadra.vincente {
+    font-weight: 800;
+    background: var(--ambra-chiara);
+}
+
+.tabellone-squadra.vuota {
+    color: var(--bs-secondary-color);
+    font-style: italic;
+}
+
+.tabellone-testa {
+    flex: none;
+    width: 1.25rem;
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--bs-secondary-color);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.tabellone-nome {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tabellone-avviso {
+    flex: none;
+    color: var(--ambra-testo);
+    cursor: help;
+}
+
+.tabellone-game {
+    flex: none;
+    width: 1.25rem;
+    font-weight: 700;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.tabellone-azione {
+    padding: .25rem .5rem .375rem;
+    border-top: 1px solid var(--bordo);
+    text-align: right;
+}
+
+/* --- Requisiti della password ------------------------------------------------ */
+
+.elenco-requisiti {
+    padding: .75rem 1rem;
+    border-radius: var(--bs-border-radius);
+    background: var(--ambra-chiara);
+}
+
+.requisito {
+    display: flex;
+    align-items: baseline;
+    gap: .5rem;
+    color: var(--bs-secondary-color);
+}
+
+.requisito.soddisfatto {
+    color: #146c43;
+}
+
+/* --- Tabelle DataTables (x-ui.datatable) --------------------------------------- */
+
+/* Dentro una scheda a filo: ricerca, righe per pagina, riepilogo e pagine
+   si allineano al titolo della scheda; la tabella resta a tutta larghezza. */
+.card .dt-container > .row {
+    --bs-gutter-x: 0;
+    margin: 0;
+    padding: .75rem var(--bs-card-spacer-x);
+    gap: .5rem;
+}
+
+.card .dt-container > .row.dt-layout-table {
+    padding: 0;
+    border-block: 1px solid var(--bordo);
+}
+
+/* Su schermi stretti scorre la tabella, non la pagina.
+   `position: relative` tiene dentro anche gli elementi posizionati (es. le etichette per screen reader). */
+.dt-container .dt-layout-table > * {
+    position: relative;
+    overflow-x: auto;
+}
+
+/* Numeri e date allineati a sinistra come le loro intestazioni (DataTables li metterebbe a destra) */
+table.dataTable th.dt-type-numeric,
+table.dataTable th.dt-type-date,
+table.dataTable td.dt-type-numeric,
+table.dataTable td.dt-type-date {
+    text-align: left;
+}
+
+table.dataTable th.dt-type-numeric div.dt-column-header,
+table.dataTable th.dt-type-date div.dt-column-header {
+    flex-direction: row;
+}
+
+.dt-container .dt-search label,
+.dt-container .dt-length label,
+.dt-container .dt-info {
+    color: var(--bs-secondary-color);
+    font-size: .875rem;
+}
+
+.dt-container .dt-info {
+    padding-top: 0;
+}
+
+.dt-container .dt-paging .pagination {
+    margin-bottom: 0;
+}
+
+/* Riga sotto il puntatore: stesso colore delle altre tabelle (DataTables userebbe un grigio) */
+table.table.dataTable.table-hover > tbody > tr:hover > * {
+    box-shadow: inset 0 0 0 9999px var(--bs-table-hover-bg);
+}
+
+/* Riga "nessun elemento" / "nessun risultato" */
+table.dataTable td.dt-empty {
+    padding-block: 1.5rem;
+    color: var(--bs-secondary-color);
+}
+
+/* Filtri di colonna (x-ui.datatable-filter), accanto alla casella di ricerca */
+.dt-container .dt-layout-end {
+    flex-wrap: wrap;
+    row-gap: .5rem;
+}
+
+.filtro-tabella {
+    color: var(--bs-secondary-color);
+    font-size: .875rem;
+}
+
+.filtro-tabella .form-select {
+    width: auto;
+    max-width: 16rem;
+}
+
+/* --- Righe ripetute di un form (x-ui.repeater) ---------------------------------- */
+
+/* Sotto la larghezza in cui i campi stanno su una riga sola, un filo separa un giocatore dall'altro */
+@media (max-width: 1199.98px) {
+    .riga-ripetuta + .riga-ripetuta {
+        margin-top: .5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--bordo);
+    }
+}
+
+/* Colonne <x-ui.col grow="…">: da 1200px in su si dividono la riga in proporzione a --proporzione,
+   invece che in dodicesimi (righe con tanti campi, es. i nuovi giocatori). */
+@media (min-width: 1200px) {
+    .col-xl-proporzionale {
+        flex: var(--proporzione, 1) 1 0;
+        width: auto;
+        min-width: 0;
+    }
+}
+
+/* --- Scelta multipla (x-ui.checkbox-list) -------------------------------------- */
+
+.elenco-scelte {
+    max-height: 18rem;
+    overflow-y: auto;
+}
+
+.elenco-scelte .list-group-item {
+    cursor: pointer;
+    border-inline: 0;
+}
+
+.elenco-scelte .list-group-item:first-child {
+    border-top: 0;
+}
+
+.elenco-scelte .list-group-item:last-child {
+    border-bottom: 0;
+}
+
+.elenco-scelte .list-group-item:hover {
+    background-color: var(--ambra-chiara);
+}
+
+/* --- Finestre modali ------------------------------------------------------------ */
+
+.modal-title .bi {
+    margin-right: .25rem;
+}
+
+/* Finestra del risultato: il girone (o il turno delle finali) della partita mostrata.
+   Fascia chiara finché si resta nello stesso girone; quando la finestra passa a un altro
+   (`.gruppo-cambiato`, messa da torneo.js) diventa piena e pulsa due volte. */
+.gruppo-partita {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: .25rem .75rem;
+    margin-bottom: .5rem;
+    padding: .5rem .75rem;
+    color: var(--inchiostro);
+    background-color: var(--ambra-chiara);
+    border-left: 4px solid var(--ambra);
+    border-radius: var(--bs-border-radius);
+    transition: background-color .3s ease;
+}
+
+.gruppo-partita-nome {
+    font-size: 1.125rem;
+    font-stretch: var(--semilargo);
+    font-weight: 800;
+    color: var(--nero);
+}
+
+.gruppo-partita.gruppo-cambiato {
+    background-color: var(--ambra);
+    border-left-color: var(--nero);
+    animation: cambio-gruppo .9s ease-out 2;
+}
+
+@keyframes cambio-gruppo {
+    from { box-shadow: 0 0 0 0 rgba(var(--ambra-rgb), .75); }
+    to { box-shadow: 0 0 0 .875rem rgba(var(--ambra-rgb), 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gruppo-partita {
+        transition: none;
+    }
+
+    .gruppo-partita.gruppo-cambiato {
+        animation: none;
+    }
+}
+
+/* --- Schermi piccoli ---------------------------------------------------------- */
+
+@media (max-width: 575.98px) {
+    .pagina-ospite {
+        --passo: 2.75rem;
+    }
+
+    .marchio-grande {
+        font-size: 1.75rem;
+    }
+
+    .intestazione-pagina h1 {
+        font-size: 1.3rem;
+    }
+}
