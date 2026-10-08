@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\Ruolo;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,19 +14,28 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Attributi assegnabili in massa.
+     * `ruolo` è escluso di proposito: non deve mai arrivare da un form.
      *
      * @var list<string>
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Valori predefiniti (allineati al default della colonna).
      *
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+        'ruolo' => Ruolo::Utente->value,
+    ];
+
+    /**
      * @var list<string>
      */
     protected $hidden = [
@@ -35,8 +44,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
@@ -44,6 +51,23 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'ruolo' => Ruolo::class,
         ];
+    }
+
+    public function haRuolo(Ruolo ...$ruoli): bool
+    {
+        return in_array($this->ruolo, $ruoli, true);
+    }
+
+    public function eAmministratore(): bool
+    {
+        return $this->haRuolo(Ruolo::Amministratore);
+    }
+
+    /** Nome della rotta a cui l'utente atterra dopo l'accesso. */
+    public function rottaIniziale(): string
+    {
+        return $this->ruolo->rottaIniziale();
     }
 }
